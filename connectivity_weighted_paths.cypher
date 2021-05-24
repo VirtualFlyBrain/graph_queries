@@ -3,7 +3,7 @@ WITH ["VFB_0010007j","VFB_00101311"] AS neurons
  WITH neurons[0] as a, neurons[1] AS b
 
  MATCH (source:has_neuron_connectivity {short_form: a}), (target:Neuron {short_form: b})
- // Cypher projection to construct in memory sub-graph
+ // Anonymous in-memory sub-graph construction
  CALL gds.beta.shortestPath.yens.stream({
   nodeQuery: 'MATCH (n:Neuron) RETURN id(n) AS id',
   // min weight restriction: exists(r.weight) AND r.weight[0] >= 10
