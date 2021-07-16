@@ -1,4 +1,7 @@
+# Circuit Browser Query (Shortest Weighted Path Algorithm)
+
 Geppetto passes a list of neuron IDs (short_form). 
+
 ---
 **NOTE**
 
@@ -15,7 +18,14 @@ From this we take just the first as the source and 2nd as the target for path se
 MATCH (source:Neuron:has_neuron_connectivity {short_form: a}), (target:Neuron:has_neuron_connectivity {short_form: b})
 ```
 Using the stream (creating the graph at runtime), yens shortest Path algorithm: 
-Firstly take all nodes with :Neuron:has_neuron_connectivity labels exist then create a graph where forward synapesed_to edge relationships have a weight >= the user given minimum weight.
+Firstly take all nodes with :Neuron:has_neuron_connectivity labels exist then create a graph where forward synapesed_to edge relationships have a weight >= the user given minimum weight. We at this point generate the inverted weight value (5000-weight = weight_p) as the algorithm looks for lowest value and we need max weight prioritised. 
+
+---
+**NOTE**
+
+5000 was chosen as a value larger than the max weight value curretly available. This will need to be reviewed and optimised in respect of hops vs weight. 
+---
+
 ```cypher
 CALL gds.beta.shortestPath.yens.stream({
   nodeQuery: 'MATCH (n:Neuron:has_neuron_connectivity) RETURN id(n) AS id', 
