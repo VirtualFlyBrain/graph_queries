@@ -1,6 +1,8 @@
 ```cypher
 WITH [$neuronA$,$neuronB$] AS neurons
 WITH neurons[0] as a, neurons[1] AS b
+```
+```cypher
 MATCH (source:has_neuron_connectivity {short_form: a}), (target:Neuron {short_form: b})
 CALL gds.beta.shortestPath.yens.stream({
   nodeQuery: 'MATCH (n:Neuron) RETURN id(n) AS id', 
