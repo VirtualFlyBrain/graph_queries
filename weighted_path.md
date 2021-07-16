@@ -17,13 +17,17 @@ CALL gds.beta.shortestPath.yens.stream({
   relationshipTypes: ['*'],
   path: true
 })
-YIELD index, sourceNode, targetNode, nodeIds, path"
-WITH * ORDER BY index DESC"
-UNWIND relationships(path) as sr"
+YIELD index, sourceNode, targetNode, nodeIds, path
+```
+```cypher
+WITH * ORDER BY index DESC
+UNWIND relationships(path) as sr
 OPTIONAL 
   MATCH cp=(x)-[:synapsed_to]-(y) 
   WHERE x=apoc.rel.startNode(sr) AND y=apoc.rel.endNode(sr) 
 OPTIONAL MATCH fp=(x)-[r:synapsed_to]->(y)
+```
+```cypher
 RETURN 
   distinct a as root, 
   collect(distinct fp) as pp, 
