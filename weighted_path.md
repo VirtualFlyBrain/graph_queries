@@ -24,6 +24,7 @@ Firstly take all nodes with :Neuron:has_neuron_connectivity labels exist then cr
 **NOTE**
 
 5000 was chosen as a value larger than the max weight value curretly available. This will need to be reviewed and optimised in respect of hops vs weight. 
+
 ---
 
 ```cypher
