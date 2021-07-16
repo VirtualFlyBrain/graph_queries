@@ -17,7 +17,8 @@ From this we take just the first as the source and 2nd as the target for path se
 ```cypher
 MATCH (source:Neuron:has_neuron_connectivity {short_form: a}), (target:Neuron:has_neuron_connectivity {short_form: b})
 ```
-Using the stream (creating the graph at runtime), yens shortest Path algorithm: 
+Using the stream (creating the graph at runtime), [Yen’s k-Shortest Path algorithm](https://neo4j.com/docs/graph-data-science/current/algorithms/yens/): 
+
 Firstly take all nodes with :Neuron:has_neuron_connectivity labels exist then create a graph where forward synapesed_to edge relationships have a weight >= the user given minimum weight. We at this point generate the inverted weight value (5000-weight = weight_p) as the algorithm looks for lowest value and we need max weight prioritised. 
 
 ---
