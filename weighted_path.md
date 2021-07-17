@@ -35,9 +35,9 @@ CALL gds.beta.shortestPath.yens.stream({
     MATCH (a:Neuron:has_neuron_connectivity)-[r:synapsed_to]->(b:Neuron:has_neuron_connectivity) 
     WHERE exists(r.weight) AND r.weight[0] >= $WEIGHT$? 
     RETURN id(a) AS source, id(b) AS target, type(r) as type, 5000-r.weight[0] as weight_p',
-    ```
+```
     Then the algorithm takes in the source and target node ids and the number of paths (k) the user selected with the slider. The weighting is done using the 'weight_p' value created in our custon graph above. All relationships are explored as we already filterted this in our created graph.  
-    ```cypher
+```cypher
   sourceNode: id(source),
   targetNode: id(target),
   k: $PATHS$,
