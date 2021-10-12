@@ -77,4 +77,4 @@ RETURN
   collect(distinct toString(id(r))+':'+toString(index)) as relationshipY 
 ```
 
-Gepptto is passed all distinct Primary Paths (pp), complete Paths (p), all forward edge ids so the arrows can be drawn for them and weight shown correctly, source/ target nodes and for layout of the graph the max number of hops (longest path) value is passed along with a list of the edge ids with their repective path index so they can be positioned in path levels (X axis).
+Geppetto is passed all distinct Primary Paths (pp), complete Paths (p), all forward edge ids so the arrows can be drawn for them and weight shown correctly, source/ target nodes and for layout of the graph the max number of hops (longest path) value is passed along with a list of the edge ids with their repective path index so they can be positioned in path levels (X axis).
