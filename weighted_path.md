@@ -5,7 +5,7 @@ Geppetto passes a list of neuron IDs (short_form).
 ---
 **NOTE**
 
-Curretly Geppetto is configured to limited this list to 2 but there is future potential for 'via' neurons. 
+Curretly Geppetto is configured to limit this list to 2 but there is future potential for 'via' neurons. 
 
 ---
 
@@ -22,7 +22,7 @@ MATCH (source:Neuron:has_neuron_connectivity {short_form: a}), (target:Neuron:ha
 
 Using the stream (creating the graph at runtime), [Yen’s k-Shortest Path algorithm](https://neo4j.com/docs/graph-data-science/current/algorithms/yens/): 
 
-Firstly take all nodes with :Neuron:has_neuron_connectivity labels exist then create a graph where forward synapesed_to edge relationships have a weight >= the user given minimum weight. We at this point generate the inverted weight value (5000-weight = weight_p) as the algorithm looks for lowest value and we need max weight prioritised. 
+Firstly take all nodes with :Neuron:has_neuron_connectivity labels exist then create a graph where forward synapsed_to edge relationships have a weight >= the user given minimum weight. We at this point generate the inverted weight value (5000-weight = weight_p) as the algorithm looks for the lowest value and we need max weight prioritised. 
 
 ---
 **NOTE**
@@ -54,7 +54,7 @@ YIELD index, sourceNode, targetNode, nodeIds, path
 ```
 
 From the shortest path algorithm we get a list of paths 0-N (index), source/target Node are the one we passed in, nodeIds is a list of node ids for each neuron along the found path (these id's match real neuron nodes) and the path is the complete path or real neuron nodes and virtual relationships (don't actually exist in PDB).
-As we only have the forward relationship plus only the virtual 'path_N' edges we temp created rather than the real 'symapsed_to' edges we first derive them by finding finding all synaped_to edges between each relationship hop (Complete Path - cp) in the path by unwinding them. We then just extract the forward paths for the same neuron hops (Forward Path - fp) so Gepptto knows which way to draw the path/edge arrows.
+As we only have the forward relationship plus only the virtual 'path_N' edges we temp created rather than the real 'symapsed_to' edges we first derive them by finding all synaped_to edges between each relationship hop (Complete Path - cp) in the path by unwinding them. We then just extract the forward paths for the same neuron hops (Forward Path - fp) so Gepptto knows which way to draw the path/edge arrows.
 
 ```cypher
 WITH * ORDER BY index DESC
@@ -77,4 +77,4 @@ RETURN
   collect(distinct toString(id(r))+':'+toString(index)) as relationshipY 
 ```
 
-Geppetto is passed all distinct Primary Paths (pp), complete Paths (p), all forward edge ids so the arrows can be drawn for them and weight shown correctly, source/ target nodes and for layout of the graph the max number of hops (longest path) value is passed along with a list of the edge ids with their repective path index so they can be positioned in path levels (X axis).
+Geppetto is passed all distinct Primary Paths (pp), complete Paths (p), all forward edge ids so the arrows can be drawn for them and weight shown correctly, source/target nodes and for the graph layout the max number of hops (longest path) value is passed along with a list of the edge ids with their respective path index so they can be positioned in path levels (X axis).
